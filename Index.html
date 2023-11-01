@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GP Surgery</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<div class="header">
+    <h1>GP SURGERY NAME</h1>
+    <p>GP SURGERY SLOGAN/DESCRIPTION</p>
+</div>
+
+<div class="navbar">
+<!--    Only Login is functional.-->
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Contact us</a>
+    <a href="#" id="login-popup" class="right" onclick="open_login()">Login</a>
+</div>
+
+<!--TODO: Add regex-->
+<!--Div for the window that contains the form-->
+<div class="login-window">
+<!--    login form div + Elements-->
+    <div id="login-form-window" class="login-form-window">
+        <form id="login-form" class="login-form" onsubmit="return login()">
+            <h1>Login</h1>
+        <!--    Are We using Emails or usernames? Do I need regex here? -->
+            <label for="E-mail Address/Username"> E-mail/Username</label>
+            <input type="text" id="E-mail Address/Username"
+                   placeholder="Enter E-mail address/Username:"
+                   name="email/username" required>
+
+            <label for="password"> Password</label>
+            <input type="password" id="password" placeholder="Enter password:" name="password" required>
+            <button type="submit" class="btn submit">Login</button>
+            <button type="button" class ="btn cancel" onclick="close_login()">Abort</button>
+
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="side">...</div>
+    <div class="main">...</div>
+</div>
+
+
+<footer>placeholder_text</footer>
+
+<script>
+    //open Login Window
+    function open_login() {
+        document.getElementById("login-form-window").style.display = "block";
+
+    }
+
+    //Close Login Window
+    function close_login() {
+        document.getElementById("login-form-window").style.display = "none";
+    }
+
+    // TODO: problems with function...... Can get Alert to display but not to move to new link. Need to revisit.
+    // Function will be changed after password implementation
+    function login() {
+        const username = document.getElementById("E-mail Address/Username").value;
+        const password = document.getElementById("password").value;
+
+        if (username === "admin" && password === "admin") {
+            // alert("Login successful!");
+            window.location.href = 'Admin.html';
+            return true;
+        } if(username === "user" && password === "user") {
+            alert("Login successful!");
+            window.location.href = "Patient_Booking.html";
+            return true;
+        }
+        else {
+            alert("Login failed. Please check your username and password.");
+            return false;
+        }
+    }
+</script>
+
+
+
+
+</body>
+</html>

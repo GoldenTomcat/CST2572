@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 36px;
+            margin: 0;
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <h1>Patient Details</h1>
+</header>
+<div class="container">
+    <ul class="patients" id="patients">
+        <!-- User list items will be added here dynamically -->
+    </ul>
+    <form id="add-new-patient-form">
+        <h2>Add User</h2>
+        <label for="patient-id">Patient ID:</label>
+        <input type="text" id="patient-id" required>
+        <label for="first-name">First Name:</label>
+        <input type="text" id="first-name" required>
+        <label for="surname">Surname:</label>
+        <input type="text" id="surname" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" placeholder="07123 456789" pattern="[0-9]{5} [0-9]{6}" required>
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" required>
+<!--        <label for="sex-M">Sex:</label>-->
+<!--        <input type="radio" id="sex-M" name="sex" value="M" required>-->
+<!--        <input type="radio" id="sex-F" name="sex" value="F" required>-->
+        <button type="button" onclick="add_new_patient()">Add User</button>
+    </form>
+</div>
+<footer>placeholder_text</footer>
+
+<script>
+    function add_new_patient() {
+        // Get user input values
+
+        const patient_id = document.getElementById("patient-id").value;
+        const first_name = document.getElementById("first-name").value;
+        const surname = document.getElementById("surname").value;
+
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+        const DOB = document.getElementById("dob").value;
+        // const SEX = document.getElementById("sex").value;
+
+
+        // Create a new list item with user details
+        const new_patient = document.createElement("li");
+        new_patient.innerHTML = `
+                <div class="patient-details">${patient_id}</div>
+                <div>First Name: ${first_name}</div>
+                <div>Surname: ${surname}</div>
+                <div>Email: ${email}</div>
+                <div>Phone: ${phone}</div>
+                <div>DOB: ${DOB}</div>
+                // <div>SEX: ${SEX}</div>
+
+            `;
+
+        // Add the new user to the list
+        const patients = document.getElementById("patients");
+        patients.appendChild(new_patient);
+
+        // Clear the input fields
+        document.getElementById("patient-id").value = "";
+        document.getElementById("first-name").value = "";
+        document.getElementById("surname").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("phone").value = "";
+        document.getElementById("dob").value = "";
+        // document.getElementById("sex").value = "";
+
+
+    }
+</script>
+</body>
+</html>

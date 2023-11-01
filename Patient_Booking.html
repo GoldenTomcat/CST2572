@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Appointments</title>
+    <link rel="stylesheet" href="style.css">
+<!--    TODO:These Icons didn't work, try fixing at later date-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+
+<div class="navbar">
+    <a href="Index.html">home</a>
+    <a href="Patient_Booking.html">Prescription Info & Doctors Notes</a>
+
+
+</div>
+
+<!--Div for calendar-->
+<!--Classes 'month' and 'days' are utilised by the script at the bottom to fill the list with days in the current month-->
+<div class="calendar">
+    <div class="month" id="month"></div>
+    <div class="days" id="days"></div>
+</div>
+
+<!--on clicking a day, a popup will appear for booking an appointment-->
+<!--once database is live need to link this to database to take away booked timeslots-->
+<div class="popup" id="popup">
+    <p id="popup-content">Clicked Date: </p>
+    <label for="dropdown">Select an appointment slot</label><select class="dropdown" id="dropdown">
+        <option value="option1">08:00</option>
+        <option value="option1">09:00</option>
+        <option value="option1">10:00</option>
+        <option value="option1">11:00</option>
+        <option value="option1">12:00</option>
+        <option value="option2">13:00</option>
+        <option value="option3">14:00</option>
+        <option value="option1">15:00</option>
+        <option value="option1">16:00</option>
+        <option value="option1">17:00</option>
+    </select>
+</div>
+
+<script>
+
+    // function to get the current month from the javascript date object
+    //takes date object as parameter returns month as string
+    function get_month_name(date) {
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        return months[date.getMonth()];
+    }
+
+    // Function to generate and display the calendar for a given month and year
+    function generate_calendar(year, month) {
+        const first_day_month = new Date(year, month, 1);
+        const last_day_month = new Date(year, month + 1, 0);
+        //get the last day in the month to check how many days in that month
+        const days_in_month = last_day_month.getDate();
+        const current_month = get_month_name(first_day_month);
+
+        //concatenate Month + Year for display on calendar
+        document.getElementById('month').textContent = current_month + ' ' + year;
+
+        //prepare to add days to calendar
+        const days_cont = document.getElementById('days');
+        days_cont.innerHTML = '';
+
+        // Add day labels (Sun, Mon, Tue, etc.)
+        // create a row of divs
+        const day_label = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        day_label.forEach(label => {
+            const label_element = document.createElement('div');
+            label_element.classList.add('day');
+            label_element.textContent = label;
+            days_cont.appendChild(label_element);
+        });
+
+        // Fill in the days of the month
+        for (let day = 1; day <= days_in_month; day++) {
+            const day_element = document.createElement('div');
+            day_element.classList.add('day');
+            day_element.textContent = day;
+
+            // If a day is clicked, open the appointment booking screen
+            day_element.addEventListener('click', () => showPopup(day, month, year));
+
+            days_cont.appendChild(day_element);
+        }
+    }
+
+    // Initial display (current month)
+    const currentDate = new Date();
+    generate_calendar(currentDate.getFullYear(), currentDate.getMonth());
+
+    // Appointment booking on day click
+    function showPopup(day, month, year) {
+        const popup = document.getElementById('popup');
+        const popupContent = document.getElementById('popup-content');
+        popupContent.textContent = `Clicked Date: ${month + 1}/${day}/${year}`;
+        popup.style.display = 'block';
+    }
+
+
+</script>
+
+</body>
+</html>

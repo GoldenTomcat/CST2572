@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<!--    TODO:Think of a better title-->
+    <title>Doctor's Patient viewing</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 36px;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Patient Details</h1>
+</header>
+
+<div class="container">
+    <ul class="patients" id="patients">
+    </ul>
+    <form id="add-patient-info">
+        <h2> Add Patient Info</h2>
+        <label for="patient-id">Patient ID:</label>
+        <input type="text" id="patient-id" required>
+        <label for="medical-info">Medical Information:</label>
+        <textarea rows="6" cols="25" placeholder="Enter medical Notes: " id="medical-info"></textarea>
+        <button type="button" onclick="add_info()">Add Medical Information</button>
+
+    </form>
+    <hr>
+
+    <div id="patient-search" class="patient-search">
+        <!--        TODO: Add patient History-->
+        <h2>View Patient History</h2>
+        <button type="button" onclick="open_search()">View History</button>
+        <div id="search-popup" class="search-popup">
+            <div class="search-results">
+                <input type="text" id="search-box" placeholder="Enter Patient ID" oninput="searchRecords()">
+                <ul id="search-results">
+                    <li>Record 1</li>
+                    <li>Record 2</li>
+                    <li>Record 3</li>
+                    <li>Record 4</li>
+                    <li>Record 5</li>
+            </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function add_info() {
+
+        const patient_id = document.getElementById("patient-id").value;
+        const medical_info = document.getElementById("medical-info").value;
+
+        const new_info = document.createElement("li");
+        new_info.innerHTML = `
+                <div class="medical-information">${patient_id}</div>
+                <div>First Name: ${medical_info}</div>
+            `;
+
+        const patients = document.getElementById("patients");
+        patients.appendChild(new_info);
+
+        document.getElementById("patient-id").value = "";
+        document.getElementById("medical-info").value = "";
+    }
+
+    function open_search() {
+        document.getElementById('search-popup').style.display = 'block';
+
+    }
+
+    function searchRecords() {
+        const input = document.getElementById('search-box').value.toLowerCase();
+        const records = document.querySelectorAll('#search-results li');
+
+        records.forEach(record => {
+            const text = record.textContent.toLowerCase();
+            if (text.includes(input)) {
+                record.style.display = 'block';
+            } else {
+                record.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
